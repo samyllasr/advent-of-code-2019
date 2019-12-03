@@ -10,16 +10,15 @@ test("calculate required fuel", () => {
 
 test("calculates from file inputs", (done) => {
     fs.readFile(__dirname + '/inputs/fuel-inputs.txt', (err, data) => {
-        const items = data.toString().split('\n');
-        const requiredFuel = items.map(i => calculateFuel(i));
+        
+        const sumFuels = data.toString()
+            .trim()    
+            .split('\n')
+            .reduce((acc, m) => {
+                return acc + calculateFuel(m);
+            }, 0)
 
-        let sumFuels = 0;
-
-        requiredFuel.forEach((s) => {
-            sumFuels += s;
-        })
-
-        expect(sumFuels).toBe(3087894);
+        expect(sumFuels).toBe(3087896);
 
         done();
     })
