@@ -16,6 +16,28 @@ const calculateIntcode = (codes) => {
     return codes;
 }
 
+const calculateNounAndVerb = (initialCodes, output) => {
+    
+    for(let noun = 0; noun < 100; noun++) {
+        for (let verb = 0; verb < 100; verb++) {
+            let codes = [...initialCodes];
+
+            codes[1] = noun;
+            codes[2] = verb;
+
+            if (calculateIntcode(codes)[0] === output) {
+                return {
+                    noun,
+                    verb
+                }
+            }
+        }
+    }
+
+    throw new Error('Could not find noun and verb');
+}
+
 module.exports = {
-    calculateIntcode
+    calculateIntcode,
+    calculateNounAndVerb
 };

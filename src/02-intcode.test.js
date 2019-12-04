@@ -1,4 +1,4 @@
-const { calculateIntcode } = require('./02-intcode');
+const { calculateIntcode, calculateNounAndVerb } = require('./02-intcode');
 const fs = require('fs');
 
 test('calculate Intcode', () => {
@@ -18,7 +18,23 @@ test("calculate Intcode from file", (done) => {
         codes[1] = 12;
         codes[2] = 2;
         
-        expect(calculateIntcode(codes)[0]).toEqual(10694);
+        expect(calculateIntcode(codes)[0]).toEqual(2890696);
+
+        done();
+    })
+})
+
+test("guess noun and verb", (done) => {
+    fs.readFile(__dirname + '/inputs/intcode-input.txt', (err, data) => {
+        const codes = data.toString()
+            .trim()
+            .split(',')
+            .map(i => parseInt(i));
+        
+        expect(calculateNounAndVerb(codes, 19690720)).toEqual({
+            noun: 82,
+            verb: 26
+        });
 
         done();
     })
